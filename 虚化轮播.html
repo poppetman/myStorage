@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0px;padding: 0px;}
+			.clearfix:after{
+				content: "";
+				display: block;
+				clear: both;
+				height: 0px;
+				overflow: hidden;
+			}
+			li{list-style: none;}
+			.box{
+				width: 550px;
+				height: 321px;
+				position: relative;
+				margin: 50px auto;
+			}
+			.box>.imgUl>li>img{
+				width: 550px;
+				height: 321px;
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				transition: all 1s linear;
+			}
+			.box>.indicator{
+				position: absolute;
+				right: 0px;
+				bottom: 0px;
+			}
+			.box>.indicator>li{
+				float: left;
+				margin-left: 2px;
+				width: 30px;
+				height: 30px;
+				text-align: center;
+				line-height: 30px;
+				background-color: rgba(200,200,200,0.5);
+			}
+			.box>.indicator>li.active{
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="box">
+			<ul class="imgUl">
+				<li><img src="ads/1.jpg" style="opacity: 1;"/></li>
+				<li><img src="ads/2.jpg" style="opacity: 0;"/></li>
+				<li><img src="ads/3.jpg" style="opacity: 0;"/></li>
+				<li><img src="ads/4.jpg" style="opacity: 0;"/></li>
+				<li><img src="ads/5.jpg" style="opacity: 0;"/></li>
+			</ul>
+			
+			<ul class="indicator clearfix">
+				<li class="active">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			var imgList = document.querySelectorAll(".box>.imgUl>li>img");
+			var liList = document.querySelectorAll(".box>.indicator>li");
+			
+			var index = 0;
+			
+			clearInterval(timer);
+			var timer = setInterval(showImg,1000);
+			
+			function showImg(){
+				index++;
+				if(index == 5){
+					index=0;
+				}
+				activeItem(index);
+			}
+			
+			function activeItem(index){
+				for(var i = 0;i < liList.length;i++){
+					if(i == index){
+						imgList[i].style.opacity = "1";
+						liList[i].className = 'active';
+					}else{
+						imgList[i].style.opacity = "0";
+						liList[i].className = "";
+					}
+				}
+			}
+			
+			for(var i = 0;i < liList.length;i++){
+				liList[i].index = i;
+				liList[i].onmouseover = function(){
+					var index = this.index;
+					clearInterval(timer);
+					activeItem(index);
+				}
+				liList[i].onmouseout = function(){
+					index = this.index;
+					timer = setInterval(showImg,1000);
+				}
+			}
+		</script>
+	</body>
+</html>
