@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0px;padding: 0px;}
+			.box{
+				background-color: orange;
+				width: 500px;
+				height: 400px;
+				margin: 50px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<canvas id="canvasId" width="500" height="400"></canvas>
+		</div>
+		
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvasId");
+			
+			var context = canvas.getContext("2d");
+			
+			//绘制坐标
+			//绘制x轴
+			context.beginPath();
+			context.save();
+			context.strokeStyle = "black";
+			context.lineWidth = "2";
+			context.moveTo(10,380);
+			context.lineTo(480,380);
+			context.moveTo(480,375);
+			context.lineTo(480,385);
+			context.lineTo(490,380);
+			context.closePath();
+			context.fill();
+			context.stroke();
+			context.restore();
+			//绘制y轴
+			context.beginPath();
+			context.save();
+			context.strokeStyle = "black";
+			context.lineWidth = "2";
+			context.moveTo(10,380);
+			context.lineTo(10,20);
+			context.moveTo(5,20);
+			context.lineTo(10,20);
+			context.lineTo(15,20);
+			context.lineTo(10,10);
+			context.closePath();
+			context.fill();
+			context.stroke();
+			context.restore();
+			
+			//绘制刻度
+			function drawText(xLength){
+				context.beginPath();
+				context.save();
+				context.strokeStyle = "black";
+				context.lineWidth = "2";
+				context.moveTo(10,xLength);
+				context.lineTo(15,xLength);
+				context.font = "bold 14px Arial";
+				context.fillStyle = "black";
+				context.textAlign = "center";
+				context.textBaseline = "middle";
+				context.fillText(xLength,30,xLength);
+				context.stroke();	
+				context.restore();
+			}
+			drawText(330);
+			drawText(280);
+			drawText(230);
+			drawText(180);
+			drawText(130);
+			drawText(80);
+			drawText(30);
+			
+			//绘制柱形图
+			var i = 5;
+			var timer = setInterval(function(){
+				drawRect(100,3*i);
+				drawRect(200,4*i);
+				drawRect(300,2*i);
+				drawRect(400,3*i);
+			},100);
+			
+			function drawRect(x,y){
+				i++;
+				if(i >= 100){
+					clearInterval(timer);
+					i = 5;
+				}
+				
+				context.beginPath();
+				context.save();
+				context.lineWidth = "50";
+				context.strokeStyle = "blue";
+				context.moveTo(x,380);
+				context.lineTo(x,380-y);
+				context.stroke();
+				context.closePath();
+				context.restore();
+				
+			}
+			
+			
+			
+		</script>
+	</body>
+</html>
